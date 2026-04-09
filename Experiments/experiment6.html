@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Experiment 6: DOM Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lightgray;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border: 2px solid black;
+            border-radius: 16px;
+            width: 450px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        input {
+            padding: 5px;
+            width: 90%;
+            margin-bottom: 5px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: 1px solid black;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .reset-btn {
+            background-color: #dc3545;
+            grid-column: span 2;
+        }
+
+        #livePreview {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 style="text-align: center;" id="mainHead">HELLO!</h2>
+        <p id="description">Explore the power of DOM manipulation!</p>
+
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="Type something here..." onchange="handleChange()">
+            <p id="livePreview"></p>
+        </div>
+        <div class="button-grid">
+            <button onclick="changeHeading()">Change Heading</button>
+            <button onclick="changeBgColor()">Random Color</button>
+            <button onclick="increaseFontSize()">Increase Font</button>
+            <button onclick="toggleParagraph()">Show / Hide Text</button>
+            <button class="reset-btn" onclick="resetPage()">Reset Page</button>
+        </div>
+    </div>
+    <script>
+        let heading = document.getElementById("mainHead");
+        let description = document.getElementById("description");
+        let userInput = document.getElementById("userInput");
+        let preview = document.getElementById("livePreview");
+
+        let currentFontSize = 32;
+        let originalHeading = heading.innerText;
+        let originalFontSize = currentFontSize;
+        let originalBackground = "lightgray";
+        function changeHeading() {
+            let text = userInput.value;
+            if (text !== "") {
+                heading.innerText = text;
+            } else {
+                alert("Please type something in the input box first.");
+            }
+        }
+        function changeBgColor() {
+            let colors = ["lightblue", "lightgreen", "pink", "lightyellow", "plum", "aquamarine"];
+            let randomIndex = Math.floor(Math.random() * colors.length);
+            document.body.style.background = colors[randomIndex];
+        }
+        function increaseFontSize() {
+            currentFontSize = currentFontSize + 4;
+            heading.style.fontSize = currentFontSize + "px";
+        }
+        function toggleParagraph() {
+            if (description.style.display === "none") {
+                description.style.display = "block";
+            } else {
+                description.style.display = "none";
+            }
+        }
+
+        function resetPage() {
+            heading.innerText = originalHeading;
+            heading.style.fontSize = originalFontSize + "px";
+            heading.style.color = "black";
+            description.style.display = "block";
+            document.body.style.background = originalBackground;
+            userInput.value = "";
+            preview.innerText = "";
+            currentFontSize = originalFontSize;
+        }
+        function handleChange() {
+            let text = userInput.value;
+            if (text !== "") {
+                preview.innerText = "Preview: " + text;
+            } else {
+                preview.innerText = "";
+            }
+        }
+        heading.addEventListener("mouseover", function () {
+            heading.style.color = "blue";
+        });
+        heading.addEventListener("mouseout", function () {
+            heading.style.color = "black";
+        });
+        userInput.addEventListener("keyup", function () {
+            let text = userInput.value;
+            if (text !== "") {
+                preview.innerText = "Preview: " + text;
+            } else {
+                preview.innerText = "";
+            }
+        }); 
+    </script>
+</body>
+
+</html>

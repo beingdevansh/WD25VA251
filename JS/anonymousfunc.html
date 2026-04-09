@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <script>
+            let promise = new Promise(function(resolve, reject)
+            {
+                let age = 5;
+                if(age >= 10)
+                {
+                    resolver("Valid age");
+                }
+
+                else
+                {
+                    reject("Wait for next year");
+                }
+            });
+
+            promise.then(msg => console.log(msg)).catch(error => console.log(error));
+
+            async function userData()
+            {
+                let response = await fetch('https://dummyjson.com/products/55');
+                let responseData = await response.json();
+                console.log(responseData);
+            }
+            userData();
+        </script>
+    </body>
+</html>

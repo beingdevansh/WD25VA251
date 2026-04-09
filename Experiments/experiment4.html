@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Grade Calculator</title>
+</head>
+
+<body>
+    <script>
+        let n = parseInt(prompt("Enter number of subjects:"));
+        if (isNaN(n) || n <= 0) {
+            document.write("<h2>Invalid number of subjects.</h2>");
+        } 
+        else {
+            let total = 0;
+            let failed = false;
+            let marksHTML = "";
+            let valid = true;
+
+            for (let i = 1; i <= n; i++) {
+                let marks = parseFloat(prompt("Enter marks for Subject " + i + " (out of 100):"));
+
+                if (isNaN(marks) || marks < 0 || marks > 100) {
+                    document.write("<h2>Invalid marks entered for Subject " + i + ".</h2>");
+                    valid = false;
+                    break;
+                }
+
+                total += marks;
+                marksHTML += "<tr><td>Subject " + i + "</td><td>" + marks + "</td></tr>";
+
+                if (marks < 40) {
+                    failed = true;
+                }
+            }
+
+            if (valid) {
+                let maxMarks = n * 100;
+                let average = total / n;
+                let percentage = (total / maxMarks) * 100;
+                let grade = "";
+
+                if (percentage >= 90) { grade = "O (Outstanding)"; }
+                else if (percentage >= 80) { grade = "A (Excellent)"; }
+                else if (percentage >= 70) { grade = "B (Very Good)"; }
+                else if (percentage >= 60) { grade = "C (Good)"; }
+                else if (percentage >= 50) { grade = "D (Average)"; }
+                else { grade = "F (Fail)"; }
+
+                let result = (failed || percentage < 40) ? "FAIL" : "PASS";
+                let resultColor = result === "PASS" ? "green" : "red";
+
+                document.write("<style>");
+                document.write("body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; text - align: center;} "); 
+                document.write(".container { background-color: white; padding: 20px; border: 1px solid black; width: 500px; margin: 0 auto 20px auto;} "); 
+                document.write("table { width: 100%; border-collapse: collapse; margin: 10px 0; }");
+                document.write("th, td { border: 1px solid black; padding: 8px; text-align: center; }");
+                document.write("th { background-color: lightgray; }");
+                document.write("</style>");
+
+                document.write("<div class='container'>");
+                document.write("<h2>Grade Calculator</h2>");
+                document.write("<hr>");
+                document.write("<h3>Subject Marks</h3>");
+                document.write("<table>");
+                document.write("<tr><th>Subject</th><th>Marks</th></tr>");
+                document.write(marksHTML);
+                document.write("</table>");
+                document.write("</div>");
+                document.write("<div class='container'>");
+                document.write("<h3>Your Result</h3>");
+                document.write("<hr>");
+                document.write("<p><b>Total Marks:</b> " + total + " / " + maxMarks + "</p>");
+                document.write("<p><b>Maximum Marks:</b> " + maxMarks + "</p>");
+                document.write("<p><b>Average Marks:</b> " + average.toFixed(2) + "</p>");
+                document.write("<p><b>Percentage:</b> " + percentage.toFixed(2) + "%</p>");
+                document.write("<p><b>Grade:</b> " + grade + "</p>");
+                document.write("<p><b>Result:</b> <span style='color:" + resultColor + "; font-weight:bold;'>"
+                    + result + "</span></p>");
+                document.write("</div>"); 
+            } 
+        } 
+    </script>
+</body>
+
+</html>

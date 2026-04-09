@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .box {
+            background: white;
+            padding: 15px;
+            border: 1px solid black;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Employee Management System</h2>
+
+    <div class="box">
+        <h3>Add Employee</h3>
+        <label>Name: </label> <input type="text" id="emp-name"> <br>
+        <label>ID: </label> <input type="text" id="emp-id"> <br>
+        <label>Salary: </label> <input type="number" id="emp-salary"> <br>
+        <label>Dept: </label>
+        <select id="emp-dept">
+            <option>IT</option>
+            <option>HR</option>
+            <option>Finance</option>
+        </select> <br>
+        <button onclick="addEmployee()">Add Employee</button>
+    </div>
+
+    <div class="box">
+        <h3>Actions</h3>
+        <button onclick="displayAll()">Display All</button>
+        <button onclick="filterHighSalary()">Salary > 50000</button>
+        <button onclick="calculateTotalSalary()">Total Salary</button>
+        <button onclick="calculateAvgSalary()">Average Salary</button>
+        <br><br>
+        <select id="filter-dept">
+            <option>IT</option>
+            <option>HR</option>
+            <option>Finance</option>
+        </select>
+        <button onclick="countByDepartment()">Count in Dept</button>
+    </div>
+
+    <div class="box" id="result-box" style="display:none;">
+        <h3 id="result-title"></h3>
+        <p id="result-stat"></p>
+        <div id="result-table"></div>
+    </div>
+
+    <script>
+        let employees = [];
+
+        function addEmployee() {
+            let nameVal = document.getElementById("emp-name").value.trim();
+            let idVal = document.getElementById("emp-id").value.trim();
+            let salaryVal = parseFloat(document.getElementById("emp-salary").value);
+            let deptVal = document.getElementById("emp-dept").value;
+
+            if (nameVal === "" || idVal === "" || isNaN(salaryVal)) {
+                return alert("Please fill all fields correctly.");
+            }
+
+            employees.push({
+                name: nameVal,
+                id: idVal,
+                salary: salaryVal,
+                department: deptVal
+            });
+
+            alert(nameVal + " added successfully!");
+
+            document.getElementById("emp-name").value = "";
+            document.getElementById("emp-id").value = "";
+            document.getElementById("emp-salary").value = "";
+        }
+
+        function buildTable(rows) {
+            return `<table>
+        <thead>
+            <tr><th>ID</th><th>Name</th><th>Department</th><th>Salary</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+        }
+
+        function showResult(title, stat, tableHTML) {
+            document.getElementById("result-title").innerText = title;
+            document.getElementById("result-stat").innerHTML = stat;
+            document.getElementById("result-table").innerHTML = tableHTML;
+            document.getElementById("result-box").style.display = "block";
+        }
+
+        function displayAll() {
+            if (employees.length === 0)
+                return showResult("All Employees", "", "<p>No employees yet.</p>");
+
+            let rows = "";
+            for (let emp of employees) {
+                rows += `<tr>
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.department}</td>
+            <td>₹${emp.salary.toLocaleString()}</td>
+        </tr>`;
+            }
+
+            showResult("All Employees (" + employees.length + ")", "", buildTable(rows));
+        }
+
+        function filterHighSalary() {
+            let high = employees.filter(e => e.salary > 50000);
+
+            if (high.length === 0)
+                return showResult("Salary > 50000", "", "<p>No employees found.</p>");
+
+            let rows = "";
+            for (let emp of high) {
+                rows += `<tr>
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.department}</td>
+            <td>₹${emp.salary.toLocaleString()}</td>
+        </tr>`;
+            }
+
+            showResult("Salary > 50000 (" + high.length + ")", "", buildTable(rows));
+        }
+
+        function calculateTotalSalary() {
+            if (employees.length === 0)
+                return showResult("Total Salary", "", "<p>No data</p>");
+
+            let total = employees.reduce((a, b) => a + b.salary, 0);
+
+            showResult("Total Salary",
+                "<b>Total: ₹" + total.toLocaleString() + "</b>",
+                ""
+            );
+        }
+
+        function calculateAvgSalary() {
+            if (employees.length === 0)
+                return showResult("Average Salary", "", "<p>No data</p>");
+
+            let total = employees.reduce((a, b) => a + b.salary, 0);
+            let avg = total / employees.length;
+
+            showResult("Average Salary",
+                "<b>Average: ₹" + avg.toFixed(2) + "</b>",
+                ""
+            );
+        }
+
+        function countByDepartment() {
+            let dept = document.getElementById("filter-dept").value;
+
+            let filtered = employees.filter(e => e.department === dept);
+
+            showResult("Department: " + dept,
+                "<b>Count: " + filtered.length + "</b>",
+                filtered.length ? buildTable(filtered.map(e =>`<tr>
+                <td>${e.id}</td>
+                <td>${e.name}</td>
+                <td>${e.department}</td>
+                <td>₹${e.salary.toLocaleString()}</td>
+            </tr>`).join("")) : ""
+            );
+        }
+    </script>
+</body>
+
+</html>
