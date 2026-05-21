@@ -13,11 +13,9 @@ const Experiment9 = () => {
   const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
-
     fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => response.json())
       .then(data => setApiData(data.title));
-
   }, []);
 
   const handleChange = (e) => {
