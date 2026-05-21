@@ -67,88 +67,88 @@ const Experiment9 = () => {
 
     <div className="form-container">
 
-        <style>{`
-                    body {
-                margin: 0;
-                font-family: Arial, sans-serif;
-                background: linear-gradient(to right, #0f0f1b, #111827);
-                color: white;
-                }
+      <style>{`
+          body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background: linear-gradient(to right, #0f0f1b, #111827);
+          color: white;
+        }
 
-                .form-container {
-                width: 400px;
-                margin: 40px auto;
-                padding: 30px;
-                border: 1px solid #8b8b8b;
-                border-radius: 15px;
-                background: rgba(0,0,0,0.2);
-                text-align: center;
-                }
+        .form-container {
+          width: 400px;
+          margin: 40px auto;
+          padding: 30px;
+          border: 1px solid #8b8b8b;
+          border-radius: 15px;
+          background: rgba(0,0,0,0.2);
+          text-align: center;
+        }
 
-                h2 {
-                font-size: 45px;
-                margin-bottom: 20px;
-                color: white;
-                }
+        h2 {
+          font-size: 45px;
+          margin-bottom: 20px;
+          color: white;
+        }
 
-                .api-text {
-                font-size: 18px;
-                margin-bottom: 25px;
-                line-height: 1.5;
-                color: #c5c5c5;
-                }
+        .api-text {
+          font-size: 18px;
+          margin-bottom: 25px;
+          line-height: 1.5;
+          color: #c5c5c5;
+        }
 
-                .api-text strong {
-                color: white;
-                }
+        .api-text strong {
+          color: white;
+        }
 
-                input {
-                display: block;
-                width: 100%;
-                margin-bottom: 15px;
-                padding: 14px;
-                box-sizing: border-box;
-                border: 1px solid #666;
-                border-radius: 5px;
-                background: #3b3b3b;
-                color: white;
-                font-size: 16px;
-                }
+        input {
+          display: block;
+          width: 100%;
+          margin-bottom: 15px;
+          padding: 14px;
+          box-sizing: border-box;
+          border: 1px solid #666;
+          border-radius: 5px;
+          background: #3b3b3b;
+          color: white;
+          font-size: 16px;
+        }
 
-                input::placeholder {
-                color: #bdbdbd;
-                }
+        input::placeholder {
+          color: #bdbdbd;
+        }
 
-                .error {
-                color: red;
-                font-size: 13px;
-                display: block;
-                margin-top: -10px;
-                margin-bottom: 10px;
-                text-align: left;
-                }
+        .error {
+          color: red;
+          font-size: 13px;
+          display: block;
+          margin-top: -10px;
+          margin-bottom: 10px;
+          text-align: left;
+        }
 
-                .success {
-                color: #52c152;
-                font-weight: bold;
-                margin-top: 15px;
-                }
+        .success {
+          color: #52c152;
+          font-weight: bold;
+          margin-top: 15px;
+        }
 
-                button {
-                width: 100%;
-                padding: 14px;
-                background-color: #4caf50;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 18px;
-                }
+        button {
+          width: 100%;
+          padding: 14px;
+          background-color: #4caf50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+        }
 
-                button:hover {
-                background: #3ea63e;
-                }
-                `}</style>
+        button:hover {
+          background: #3ea63e;
+        }
+      `}</style>
 
       <h2>Registration Form</h2>
 
